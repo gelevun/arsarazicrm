@@ -1,17 +1,88 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { DataTable } from "@/components/ui/data-table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
 import { Eye, Edit, Trash2 } from "lucide-react";
-import { Client } from "@shared/schema";
+import { Client, insertClientSchema } from "@shared/schema";
 import { StatCard } from "@/components/ui/stat-card";
 import { Users, UserCheck, Handshake, Clock } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { apiRequest } from "@/lib/queryClient";
+
+// Form schema for adding client
+const addClientSchema = insertClientSchema.pick({
+  ad: true,
+  soyad: true,
+  email: true,
+  telefon: true,
+  tc_kimlik_no: true,
+  meslek: true,
+  adres: true,
+  notlar: true,
+}).extend({
+  email: z.string().email("Geçerli bir e-posta adresi giriniz").optional().or(z.literal("")),
+  telefon: z.string().optional(),
+  tc_kimlik_no: z.string().optional(),
+  meslek: z.string().optional(),
+  adres: z.string().optional(),
+  notlar: z.string().optional(),
+});
+
+type AddClientFormData = z.infer<typeof addClientSchema>;
 
 export default function ClientsPage() {
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  
   const { data: clients = [], isLoading } = useQuery<Client[]>({
     queryKey: ["/api/clients"],
+  });
+
+  const addClientMutation = useMutation({
+    mutationFn: async (data: AddClientFormData) => {
+      return apiRequest("POST", "/api/clients", data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/clients"] });
+      setIsAddModalOpen(false);
+      addClientForm.reset();
+      toast({
+        title: "Başarılı",
+        description: "Müşteri başarıyla eklendi.",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Hata",
+        description: error.message || "Müşteri eklenirken bir hata oluştu.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const addClientForm = useForm<AddClientFormData>({
+    resolver: zodResolver(addClientSchema),
+    defaultValues: {
+      ad: "",
+      soyad: "",
+      email: "",
+      telefon: "",
+      tc_kimlik_no: "",
+      meslek: "",
+      adres: "",
+      notlar: "",
+    },
   });
 
   const getStatusBadgeVariant = (durum: string) => {
@@ -140,8 +211,11 @@ export default function ClientsPage() {
   ];
 
   const handleAddClient = () => {
-    // TODO: Implement add client modal
-    console.log("Add client modal");
+    setIsAddModalOpen(true);
+  };
+
+  const onAddClientSubmit = (data: AddClientFormData) => {
+    addClientMutation.mutate(data);
   };
 
   return (
@@ -192,6 +266,158 @@ export default function ClientsPage() {
         addButtonText="Müşteri Ekle"
         isLoading={isLoading}
       />
+
+      {/* Add Client Modal */}
+      <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
+        <DialogContent className="sm:max-w-[600px]">
+          <DialogHeader>
+            <DialogTitle>Yeni Müşteri Ekle</DialogTitle>
+            <DialogDescription>
+              Yeni müşteri bilgilerini girin. Gerekli alanları doldurun.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <Form {...addClientForm}>
+            <form onSubmit={addClientForm.handleSubmit(onAddClientSubmit)} className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <FormField
+                  control={addClientForm.control}
+                  name="ad"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Ad *</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Müşteri adı" {...field} data-testid="client-name" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <FormField
+                  control={addClientForm.control}
+                  name="soyad"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Soyad *</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Müşteri soyadı" {...field} data-testid="client-surname" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <FormField
+                  control={addClientForm.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>E-posta</FormLabel>
+                      <FormControl>
+                        <Input type="email" placeholder="ornek@email.com" {...field} data-testid="client-email" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <FormField
+                  control={addClientForm.control}
+                  name="telefon"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Telefon</FormLabel>
+                      <FormControl>
+                        <Input placeholder="+90 555 123 45 67" {...field} data-testid="client-phone" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <FormField
+                  control={addClientForm.control}
+                  name="tc_kimlik_no"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>TC Kimlik No</FormLabel>
+                      <FormControl>
+                        <Input placeholder="12345678901" {...field} data-testid="client-tc" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <FormField
+                  control={addClientForm.control}
+                  name="meslek"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Meslek</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Müşteri mesleği" {...field} data-testid="client-profession" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <FormField
+                control={addClientForm.control}
+                name="adres"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Adres</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Müşteri adresi" {...field} data-testid="client-address" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={addClientForm.control}
+                name="notlar"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Notlar</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Ek notlar..." {...field} data-testid="client-notes" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <div className="flex justify-end space-x-2 pt-4">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setIsAddModalOpen(false)}
+                  data-testid="cancel-button"
+                >
+                  İptal
+                </Button>
+                <Button
+                  type="submit"
+                  disabled={addClientMutation.isPending}
+                  data-testid="save-client-button"
+                >
+                  {addClientMutation.isPending ? "Kaydediliyor..." : "Müşteri Ekle"}
+                </Button>
+              </div>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
