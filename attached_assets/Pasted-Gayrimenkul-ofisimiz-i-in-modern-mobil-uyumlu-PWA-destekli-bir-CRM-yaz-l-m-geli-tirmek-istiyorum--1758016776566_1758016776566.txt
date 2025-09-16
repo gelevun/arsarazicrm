@@ -1,0 +1,67 @@
+Gayrimenkul ofisimiz için modern, mobil uyumlu, PWA destekli bir CRM yazılımı geliştirmek istiyorum. 
+Bu yazılım özellikle arsa ve arazi üzerine çalışan bir gayrimenkul ofisine özel olacak. 
+Sistem; kullanıcı yönetimi, müşteri yönetimi, gayrimenkul yönetimi, belgeler, işlemler, raporlar ve muhasebe modüllerini içerecek. 
+Arayüz modern, şık, dashboard odaklı olacak ve responsive çalışacak.
+
+### Teknoloji Tercihleri
+- Frontend: React (Next.js veya Vite), Tailwind CSS, shadcn/ui, Chart.js veya Recharts
+- Backend: Node.js (Express veya NestJS), Supabase veya PostgreSQL
+- Authentication: JWT tabanlı giriş sistemi
+- PWA: manifest.json + service worker
+- Deployment: Docker, Vercel veya kendi sunucumuz
+
+### Modüller ve Tablolar
+1. **Users (kullanicilar / danismanlar)**
+   - ad, soyad, e_posta, telefon, rol, departman, parola_hash, son_giris, durum, foto, notlar,
+   - olusturulma_tarihi, guncellenme_tarihi, ciro, ciro_ofis_payi, ciro_danisman_payi, 
+   - ciro_danisman_yuzde, islem_sayisi
+   - Roller: admin (tüm sisteme erişim) ve danışman (sadece kendi portföyünü ve işlemlerini görecek)
+
+2. **Clients (musteriler)**
+   - ad, soyad, tc_kimlik_no, telefon, e_posta, adres, olusturulma_tarihi, guncellenme_tarihi, 
+   - cinsiyet, meslek, sirket_adi, vergi_no, iban, notlar, durum, danisman_id, yonlendiren_id, olusturan_kullanici
+
+3. **Properties (gayrimenkuller / tasinmazlar)**
+   - gayrimenkul_id, il, ilce, mahalle, ada_no, parsel_no, alan_m2, tur, imar_plani_turu, taks, kaks,
+   - maksimum_yukseklik, malik_id, onceki_malik_id, danisman_id, edinme_tarihi, alis_fiyati, 
+   - tapu_bedeli, tapu_satis_bedeli, degerleme_fiyati, ilan_fiyati, koordinatlar, fotograf_url, 
+   - 360_foto, ilan_tarihi, son_guncelleme_tarihi, notlar, durum, kullanim_durumu, tapu_durumu, ipotek_durumu
+
+4. **Documents (belgeler)**
+   - belge_id, gayrimenkul_id, islem_id, belge_turu, noter, vekil, vekalet_tarihi, vekalet_bitis, 
+   - yetkili_makam, malik, tapu_tarihi, onceki_malik_id, dosya_url, dosya_turu, dosya_boyutu,
+   - yuklenme_tarihi, duzenlenme_tarihi, duzenleyen_kurum, imzalayan, imza_tarihi, onaylayan,
+   - onay_tarihi, dogrulama_kodu, sozlesme_id, olusturan, olusturulma_tarihi, guncellenme_tarihi,
+   - gizlilik, notlar, durum
+
+5. **Transactions (islemler / satislar)**
+   - islem_id, gayrimenkul_id, alici_id, satici_id, islem_tarihi, tutar, para_birimi, durum,
+   - olusturulma_tarihi, guncellenme_tarihi, odeme_yontemi, odeme_durumu, komisyon_orani, 
+   - komisyon_tutari, vergi_tutari, net_tutar, sozlesme_id, notlar
+
+6. **Reports (raporlar)**
+   - ciro, islem, fatura, musteri_sayisi, portfoy_sayisi, yatirimci_raporu
+   - Ofis genel raporları + danışman bazlı raporlar + yatırımcı raporları
+
+7. **Accounting (ofis muhasebe)**
+   - toplam_ciro, ofis_payi, aylik_gelirler, aylik_giderler_sabit, giderler, gider_adi, 
+   - aylik_brut, aylik_net, vergiler, vergi_turu, odemeler, odeme_turu
+
+### Gereksinimler
+- Admin tüm sisteme hakim olacak
+- Gayrimenkul danışmanları sadece kendi portföylerini ve işlemlerini görecek
+- Dashboard’da: toplam ciro, işlem sayısı, müşteri sayısı, portföy sayısı, danışman performansı grafiklerle gösterilecek
+- Modern arayüz (Tailwind + shadcn/ui + Recharts)
+- PWA uyumlu (manifest + offline destek)
+- Mobil uyumlu ve responsive tasarım
+- Yetkilendirme ve rol bazlı erişim kontrolü olacak
+- Raporlama ve grafikler dinamik olacak
+- Ofis muhasebesi tutulacak
+
+Lütfen bu gereksinimlere uygun olacak şekilde:
+- SQL tablo şemalarını oluştur
+- Backend API (CRUD endpointleri)
+- Frontend dashboard ve sayfa yapısı (Login, Dashboard, Kullanıcılar, Müşteriler, Gayrimenkuller, İşlemler, Belgeler, Raporlar, Muhasebe)
+- Rol bazlı yetkilendirme sistemini
+- PWA manifest.json ve service worker dosyalarını
+- Modern, şık ve mobil uyumlu dashboard tasarımını hazırla.
