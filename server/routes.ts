@@ -4,6 +4,7 @@ import { storage } from "./storage";
 import { setupAuth } from "./auth";
 import { 
   insertClientSchema, 
+  consultantUpdateClientSchema,
   insertPropertySchema, 
   insertTransactionSchema,
   insertDocumentSchema,
@@ -63,9 +64,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/clients", requireAuth, async (req: Request, res: Response) => {
     try {
+      // Secure RBAC: For consultants, always enforce their own ID as danisman_id
+      const danisman_id = req.user!.rol === "admin" 
+        ? req.body.danisman_id || req.user!.id 
+        : req.user!.id; // Force consultant's own ID
+
       const validatedData = insertClientSchema.parse({
         ...req.body,
-        danisman_id: req.body.danisman_id || req.user!.id,
+        danisman_id,
         olusturan_kullanici: req.user!.id,
       });
 
@@ -73,6 +79,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(201).json(client);
     } catch (error) {
       console.error("Create client error:", error);
+      if (error.name === "ZodError") {
+        return res.status(400).json({ message: "Geçersiz müşteri verisi", errors: error.errors });
+      }
       res.status(500).json({ message: "Müşteri oluşturulurken hata oluştu" });
     }
   });
@@ -89,11 +98,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(403).json({ message: "Bu müşteriyi düzenleme yetkiniz yok" });
       }
 
-      const validatedData = insertClientSchema.partial().parse(req.body);
+      // Secure RBAC: Use restricted schema for consultants to prevent protected field manipulation
+      const validatedData = req.user?.rol === "admin" 
+        ? insertClientSchema.partial().parse(req.body)
+        : consultantUpdateClientSchema.parse(req.body);
+
       const updatedClient = await storage.updateClient(req.params.id, validatedData);
       res.json(updatedClient);
     } catch (error) {
       console.error("Update client error:", error);
+      if (error.name === "ZodError") {
+        return res.status(400).json({ message: "Geçersiz güncelleme verisi", errors: error.errors });
+      }
       res.status(500).json({ message: "Müşteri güncellenirken hata oluştu" });
     }
   });

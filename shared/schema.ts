@@ -295,6 +295,13 @@ export const insertClientSchema = createInsertSchema(clients).omit({
   guncellenme_tarihi: true,
 });
 
+// Restricted update schema for consultants - omits protected fields
+export const consultantUpdateClientSchema = insertClientSchema.omit({
+  danisman_id: true,
+  yonlendiren_id: true,
+  olusturan_kullanici: true,
+}).partial();
+
 export const insertPropertySchema = createInsertSchema(properties).omit({
   id: true,
   olusturulma_tarihi: true,
