@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Building } from "lucide-react";
 import { Redirect } from "wouter";
 import { useForm } from "react-hook-form";
@@ -23,6 +24,7 @@ const registerSchema = z.object({
   username: z.string().min(3, "Kullanıcı adı en az 3 karakter olmalıdır"),
   password: z.string().min(6, "Parola en az 6 karakter olmalıdır"),
   telefon: z.string().optional(),
+  rol: z.enum(["admin", "consultant"], { required_error: "Rol seçimi zorunludur" }),
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
@@ -39,7 +41,7 @@ export default function AuthPage() {
 
   const registerForm = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
-    defaultValues: { ad: "", soyad: "", email: "", username: "", password: "", telefon: "" },
+    defaultValues: { ad: "", soyad: "", email: "", username: "", password: "", telefon: "", rol: "consultant" },
   });
 
   // Redirect if already logged in
@@ -198,6 +200,27 @@ export default function AuthPage() {
                         {...registerForm.register("telefon")}
                         data-testid="input-phone"
                       />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="rol">Rol</Label>
+                      <Select 
+                        onValueChange={(value) => registerForm.setValue("rol", value as "admin" | "consultant")}
+                        defaultValue={registerForm.getValues("rol")}
+                      >
+                        <SelectTrigger data-testid="select-role">
+                          <SelectValue placeholder="Rol seçiniz" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="consultant" data-testid="option-consultant">Emlak Danışmanı</SelectItem>
+                          <SelectItem value="admin" data-testid="option-admin">Yönetici</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      {registerForm.formState.errors.rol && (
+                        <p className="text-sm text-destructive mt-1">
+                          {registerForm.formState.errors.rol.message}
+                        </p>
+                      )}
                     </div>
                     
                     <div>
