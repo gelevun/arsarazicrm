@@ -10,11 +10,11 @@ import {
   PieChart, 
   UserCog, 
   Calculator,
-  LogOut,
-  Building
+  LogOut
 } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
+import { DetailedLogo } from "@/components/Logo";
 
 const navigationItems = [
   { href: "/", label: "Dashboard", icon: BarChart3, roles: ["admin", "consultant"] },
@@ -60,11 +60,11 @@ export function Sidebar({ isMobileOpen = false, onMobileClose }: SidebarProps) {
       {/* Logo */}
       <div className="p-6 border-b border-border">
         <div className="flex items-center space-x-3">
-          <div className="h-10 w-10 bg-primary rounded-lg flex items-center justify-center">
-            <Building className="h-6 w-6 text-primary-foreground" />
+          <div className="h-10 w-10 bg-white rounded-lg flex items-center justify-center shadow-sm border">
+            <DetailedLogo size="md" />
           </div>
           <div>
-            <h2 className="text-lg font-semibold text-foreground">GayriCRM</h2>
+            <h2 className="text-lg font-semibold text-foreground">ArsaraziCRM</h2>
             <p className="text-xs text-muted-foreground">
               {user.rol === "admin" ? "Admin" : "Danışman"}
             </p>

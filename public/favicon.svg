@@ -1,0 +1,36 @@
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Ana konum pimi şekli - yeşil -->
+  <path
+    d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"
+    fill="#228B22"
+  />
+  
+  <!-- Sarı segment - üst sağda kavisli -->
+  <path
+    d="M12 2C14.5 2 16.5 3.5 17 5.5C17.5 7.5 16.5 9 15 9.5C13.5 10 12 9.5 10.5 9C9 8.5 8 7 8.5 5.5C9 4 10.5 2 12 2Z"
+    fill="#FFD700"
+  />
+  
+  <!-- Merkezi mavi daire -->
+  <circle
+    cx="12"
+    cy="9"
+    r="2.5"
+    fill="#1E40AF"
+  />
+  
+  <!-- Alt sağdaki mavi dikdörtgen segment -->
+  <rect
+    x="13"
+    y="11"
+    width="3"
+    height="2"
+    fill="#1E40AF"
+  />
+  
+  <!-- Sol alttaki yeşil segment -->
+  <path
+    d="M5 9L7 11L5 13L3 11L5 9Z"
+    fill="#228B22"
+  />
+</svg>

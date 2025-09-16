@@ -6,11 +6,11 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Building } from "lucide-react";
 import { Redirect } from "wouter";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { DetailedLogo } from "@/components/Logo";
 
 const loginSchema = z.object({
   email: z.string().email("Geçerli bir e-posta adresi giriniz"),
@@ -64,10 +64,10 @@ export default function AuthPage() {
         <div className="w-full max-w-md">
           {/* Logo */}
           <div className="text-center mb-8">
-            <div className="mx-auto h-16 w-16 bg-primary rounded-xl flex items-center justify-center mb-4">
-              <Building className="h-8 w-8 text-primary-foreground" />
+            <div className="mx-auto h-16 w-16 bg-white rounded-xl flex items-center justify-center mb-4 shadow-lg border">
+              <DetailedLogo size="lg" />
             </div>
-            <h1 className="text-2xl font-bold text-foreground">GayriCRM</h1>
+            <h1 className="text-2xl font-bold text-foreground">ArsaraziCRM</h1>
             <p className="text-muted-foreground mt-1">Gayrimenkul Yönetim Sistemi</p>
           </div>
 
@@ -89,7 +89,7 @@ export default function AuthPage() {
                       <Input
                         id="email"
                         type="email"
-                        placeholder="ornek@gayricrm.com"
+                        placeholder="ornek@arsarazicrm.com"
                         {...loginForm.register("email")}
                         data-testid="input-email"
                       />
@@ -166,7 +166,7 @@ export default function AuthPage() {
                       <Input
                         id="register-email"
                         type="email"
-                        placeholder="ornek@gayricrm.com"
+                        placeholder="ornek@arsarazicrm.com"
                         {...registerForm.register("email")}
                         data-testid="input-register-email"
                       />
@@ -258,8 +258,8 @@ export default function AuthPage() {
       {/* Right side - Hero section */}
       <div className="hidden lg:flex flex-1 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-950 dark:to-indigo-950 items-center justify-center p-12">
         <div className="max-w-md text-center">
-          <div className="h-24 w-24 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6">
-            <Building className="h-12 w-12 text-primary-foreground" />
+          <div className="h-24 w-24 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg border">
+            <DetailedLogo size="lg" />
           </div>
           <h2 className="text-3xl font-bold text-foreground mb-4">
             Modern Gayrimenkul Yönetimi

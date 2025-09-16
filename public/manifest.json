@@ -1,6 +1,6 @@
 {
-  "name": "GayriCRM - Gayrimenkul Yönetim Sistemi",
-  "short_name": "GayriCRM",
+  "name": "ArsaraziCRM - Gayrimenkul Yönetim Sistemi",
+  "short_name": "ArsaraziCRM",
   "description": "Modern gayrimenkul ofisi için özel tasarlanmış, arsa ve arazi yönetimi odaklı CRM sistemi",
   "start_url": "/",
   "display": "standalone",
