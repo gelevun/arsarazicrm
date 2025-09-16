@@ -10,6 +10,7 @@ import {
   insertDocumentSchema,
   insertReportSchema,
   insertAccountingSchema,
+  insertUserSchema,
   type User
 } from "@shared/schema";
 
@@ -79,8 +80,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(201).json(client);
     } catch (error) {
       console.error("Create client error:", error);
-      if (error.name === "ZodError") {
-        return res.status(400).json({ message: "Geçersiz müşteri verisi", errors: error.errors });
+      if (error && typeof error === 'object' && 'name' in error && error.name === "ZodError") {
+        return res.status(400).json({ message: "Geçersiz müşteri verisi", errors: (error as any).errors });
       }
       res.status(500).json({ message: "Müşteri oluşturulurken hata oluştu" });
     }
@@ -107,8 +108,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(updatedClient);
     } catch (error) {
       console.error("Update client error:", error);
-      if (error.name === "ZodError") {
-        return res.status(400).json({ message: "Geçersiz güncelleme verisi", errors: error.errors });
+      if (error && typeof error === 'object' && 'name' in error && error.name === "ZodError") {
+        return res.status(400).json({ message: "Geçersiz güncelleme verisi", errors: (error as any).errors });
       }
       res.status(500).json({ message: "Müşteri güncellenirken hata oluştu" });
     }
@@ -239,6 +240,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Get users error:", error);
       res.status(500).json({ message: "Kullanıcılar alınırken hata oluştu" });
+    }
+  });
+
+  app.post("/api/users", requireAdmin, async (req: Request, res: Response) => {
+    try {
+      const validatedData = insertUserSchema.parse(req.body);
+      
+      // Check if username or email already exists
+      const existingUser = await storage.getUserByUsername(validatedData.username);
+      if (existingUser) {
+        return res.status(400).json({ message: "Bu kullanıcı adı zaten kullanılıyor" });
+      }
+      
+      const existingEmail = await storage.getUserByEmail(validatedData.email);
+      if (existingEmail) {
+        return res.status(400).json({ message: "Bu e-posta adresi zaten kullanılıyor" });
+      }
+
+      const user = await storage.createUser(validatedData);
+      res.status(201).json(user);
+    } catch (error) {
+      console.error("Create user error:", error);
+      if (error && typeof error === 'object' && 'name' in error && error.name === "ZodError") {
+        return res.status(400).json({ message: "Geçersiz kullanıcı verisi", errors: (error as any).errors });
+      }
+      res.status(500).json({ message: "Kullanıcı oluşturulurken hata oluştu" });
     }
   });
 
