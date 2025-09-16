@@ -1,0 +1,1297 @@
+{
+  "id": "de40975c-7d23-4932-98c8-81b8ee2f521e",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.accounting": {
+      "name": "accounting",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "ay": {
+          "name": "ay",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "yil": {
+          "name": "yil",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "toplam_ciro": {
+          "name": "toplam_ciro",
+          "type": "numeric(15, 2)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'0'"
+        },
+        "ofis_payi": {
+          "name": "ofis_payi",
+          "type": "numeric(15, 2)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'0'"
+        },
+        "aylik_gelirler": {
+          "name": "aylik_gelirler",
+          "type": "numeric(15, 2)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'0'"
+        },
+        "aylik_giderler_sabit": {
+          "name": "aylik_giderler_sabit",
+          "type": "numeric(15, 2)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'0'"
+        },
+        "giderler": {
+          "name": "giderler",
+          "type": "numeric(15, 2)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'0'"
+        },
+        "gider_adi": {
+          "name": "gider_adi",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "aylik_brut": {
+          "name": "aylik_brut",
+          "type": "numeric(15, 2)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'0'"
+        },
+        "aylik_net": {
+          "name": "aylik_net",
+          "type": "numeric(15, 2)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'0'"
+        },
+        "vergiler": {
+          "name": "vergiler",
+          "type": "numeric(15, 2)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'0'"
+        },
+        "vergi_turu": {
+          "name": "vergi_turu",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "odemeler": {
+          "name": "odemeler",
+          "type": "numeric(15, 2)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'0'"
+        },
+        "odeme_turu": {
+          "name": "odeme_turu",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "olusturulma_tarihi": {
+          "name": "olusturulma_tarihi",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "guncellenme_tarihi": {
+          "name": "guncellenme_tarihi",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.clients": {
+      "name": "clients",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "ad": {
+          "name": "ad",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "soyad": {
+          "name": "soyad",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tc_kimlik_no": {
+          "name": "tc_kimlik_no",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "telefon": {
+          "name": "telefon",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "adres": {
+          "name": "adres",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cinsiyet": {
+          "name": "cinsiyet",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "meslek": {
+          "name": "meslek",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sirket_adi": {
+          "name": "sirket_adi",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "vergi_no": {
+          "name": "vergi_no",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "iban": {
+          "name": "iban",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "notlar": {
+          "name": "notlar",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "durum": {
+          "name": "durum",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'aktif'"
+        },
+        "danisman_id": {
+          "name": "danisman_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "yonlendiren_id": {
+          "name": "yonlendiren_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "olusturan_kullanici": {
+          "name": "olusturan_kullanici",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "olusturulma_tarihi": {
+          "name": "olusturulma_tarihi",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "guncellenme_tarihi": {
+          "name": "guncellenme_tarihi",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "clients_danisman_id_users_id_fk": {
+          "name": "clients_danisman_id_users_id_fk",
+          "tableFrom": "clients",
+          "tableTo": "users",
+          "columnsFrom": [
+            "danisman_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "clients_yonlendiren_id_users_id_fk": {
+          "name": "clients_yonlendiren_id_users_id_fk",
+          "tableFrom": "clients",
+          "tableTo": "users",
+          "columnsFrom": [
+            "yonlendiren_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "clients_olusturan_kullanici_users_id_fk": {
+          "name": "clients_olusturan_kullanici_users_id_fk",
+          "tableFrom": "clients",
+          "tableTo": "users",
+          "columnsFrom": [
+            "olusturan_kullanici"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.documents": {
+      "name": "documents",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "belge_id": {
+          "name": "belge_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "gayrimenkul_id": {
+          "name": "gayrimenkul_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "islem_id": {
+          "name": "islem_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "belge_turu": {
+          "name": "belge_turu",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "noter": {
+          "name": "noter",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "vekil": {
+          "name": "vekil",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "vekalet_tarihi": {
+          "name": "vekalet_tarihi",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "vekalet_bitis": {
+          "name": "vekalet_bitis",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "yetkili_makam": {
+          "name": "yetkili_makam",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "malik": {
+          "name": "malik",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tapu_tarihi": {
+          "name": "tapu_tarihi",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "onceki_malik_id": {
+          "name": "onceki_malik_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dosya_url": {
+          "name": "dosya_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dosya_turu": {
+          "name": "dosya_turu",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dosya_boyutu": {
+          "name": "dosya_boyutu",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "yuklenme_tarihi": {
+          "name": "yuklenme_tarihi",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "duzenlenme_tarihi": {
+          "name": "duzenlenme_tarihi",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "duzenleyen_kurum": {
+          "name": "duzenleyen_kurum",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "imzalayan": {
+          "name": "imzalayan",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "imza_tarihi": {
+          "name": "imza_tarihi",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "onaylayan": {
+          "name": "onaylayan",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "onay_tarihi": {
+          "name": "onay_tarihi",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dogrulama_kodu": {
+          "name": "dogrulama_kodu",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sozlesme_id": {
+          "name": "sozlesme_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "olusturan": {
+          "name": "olusturan",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "olusturulma_tarihi": {
+          "name": "olusturulma_tarihi",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "guncellenme_tarihi": {
+          "name": "guncellenme_tarihi",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "gizlilik": {
+          "name": "gizlilik",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'public'"
+        },
+        "notlar": {
+          "name": "notlar",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "durum": {
+          "name": "durum",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'aktif'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "documents_gayrimenkul_id_properties_id_fk": {
+          "name": "documents_gayrimenkul_id_properties_id_fk",
+          "tableFrom": "documents",
+          "tableTo": "properties",
+          "columnsFrom": [
+            "gayrimenkul_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "documents_onceki_malik_id_clients_id_fk": {
+          "name": "documents_onceki_malik_id_clients_id_fk",
+          "tableFrom": "documents",
+          "tableTo": "clients",
+          "columnsFrom": [
+            "onceki_malik_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "documents_olusturan_users_id_fk": {
+          "name": "documents_olusturan_users_id_fk",
+          "tableFrom": "documents",
+          "tableTo": "users",
+          "columnsFrom": [
+            "olusturan"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "documents_belge_id_unique": {
+          "name": "documents_belge_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "belge_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.properties": {
+      "name": "properties",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "gayrimenkul_id": {
+          "name": "gayrimenkul_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "il": {
+          "name": "il",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ilce": {
+          "name": "ilce",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mahalle": {
+          "name": "mahalle",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ada_no": {
+          "name": "ada_no",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "parsel_no": {
+          "name": "parsel_no",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "alan_m2": {
+          "name": "alan_m2",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tur": {
+          "name": "tur",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'arsa'"
+        },
+        "imar_plani_turu": {
+          "name": "imar_plani_turu",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "taks": {
+          "name": "taks",
+          "type": "numeric(5, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "kaks": {
+          "name": "kaks",
+          "type": "numeric(5, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "maksimum_yukseklik": {
+          "name": "maksimum_yukseklik",
+          "type": "numeric(5, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "malik_id": {
+          "name": "malik_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "onceki_malik_id": {
+          "name": "onceki_malik_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "danisman_id": {
+          "name": "danisman_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "edinme_tarihi": {
+          "name": "edinme_tarihi",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "alis_fiyati": {
+          "name": "alis_fiyati",
+          "type": "numeric(15, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tapu_bedeli": {
+          "name": "tapu_bedeli",
+          "type": "numeric(15, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tapu_satis_bedeli": {
+          "name": "tapu_satis_bedeli",
+          "type": "numeric(15, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "degerleme_fiyati": {
+          "name": "degerleme_fiyati",
+          "type": "numeric(15, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ilan_fiyati": {
+          "name": "ilan_fiyati",
+          "type": "numeric(15, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "koordinatlar": {
+          "name": "koordinatlar",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fotograf_url": {
+          "name": "fotograf_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "foto_360": {
+          "name": "foto_360",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ilan_tarihi": {
+          "name": "ilan_tarihi",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "son_guncelleme_tarihi": {
+          "name": "son_guncelleme_tarihi",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "notlar": {
+          "name": "notlar",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "durum": {
+          "name": "durum",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'aktif'"
+        },
+        "kullanim_durumu": {
+          "name": "kullanim_durumu",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tapu_durumu": {
+          "name": "tapu_durumu",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ipotek_durumu": {
+          "name": "ipotek_durumu",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "olusturulma_tarihi": {
+          "name": "olusturulma_tarihi",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "properties_malik_id_clients_id_fk": {
+          "name": "properties_malik_id_clients_id_fk",
+          "tableFrom": "properties",
+          "tableTo": "clients",
+          "columnsFrom": [
+            "malik_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "properties_onceki_malik_id_clients_id_fk": {
+          "name": "properties_onceki_malik_id_clients_id_fk",
+          "tableFrom": "properties",
+          "tableTo": "clients",
+          "columnsFrom": [
+            "onceki_malik_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "properties_danisman_id_users_id_fk": {
+          "name": "properties_danisman_id_users_id_fk",
+          "tableFrom": "properties",
+          "tableTo": "users",
+          "columnsFrom": [
+            "danisman_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "properties_gayrimenkul_id_unique": {
+          "name": "properties_gayrimenkul_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "gayrimenkul_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.reports": {
+      "name": "reports",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "rapor_turu": {
+          "name": "rapor_turu",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "baslik": {
+          "name": "baslik",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "icerik": {
+          "name": "icerik",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "danisman_id": {
+          "name": "danisman_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tarih_baslangic": {
+          "name": "tarih_baslangic",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tarih_bitis": {
+          "name": "tarih_bitis",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "olusturan": {
+          "name": "olusturan",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "olusturulma_tarihi": {
+          "name": "olusturulma_tarihi",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "durum": {
+          "name": "durum",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'aktif'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "reports_danisman_id_users_id_fk": {
+          "name": "reports_danisman_id_users_id_fk",
+          "tableFrom": "reports",
+          "tableTo": "users",
+          "columnsFrom": [
+            "danisman_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "reports_olusturan_users_id_fk": {
+          "name": "reports_olusturan_users_id_fk",
+          "tableFrom": "reports",
+          "tableTo": "users",
+          "columnsFrom": [
+            "olusturan"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.transactions": {
+      "name": "transactions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "islem_id": {
+          "name": "islem_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "gayrimenkul_id": {
+          "name": "gayrimenkul_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "alici_id": {
+          "name": "alici_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "satici_id": {
+          "name": "satici_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "danisman_id": {
+          "name": "danisman_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "islem_tarihi": {
+          "name": "islem_tarihi",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "tutar": {
+          "name": "tutar",
+          "type": "numeric(15, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "para_birimi": {
+          "name": "para_birimi",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'TRY'"
+        },
+        "durum": {
+          "name": "durum",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'beklemede'"
+        },
+        "olusturulma_tarihi": {
+          "name": "olusturulma_tarihi",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "guncellenme_tarihi": {
+          "name": "guncellenme_tarihi",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "odeme_yontemi": {
+          "name": "odeme_yontemi",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "odeme_durumu": {
+          "name": "odeme_durumu",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'bekleyen'"
+        },
+        "komisyon_orani": {
+          "name": "komisyon_orani",
+          "type": "numeric(5, 2)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'3'"
+        },
+        "komisyon_tutari": {
+          "name": "komisyon_tutari",
+          "type": "numeric(15, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "vergi_tutari": {
+          "name": "vergi_tutari",
+          "type": "numeric(15, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "net_tutar": {
+          "name": "net_tutar",
+          "type": "numeric(15, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sozlesme_id": {
+          "name": "sozlesme_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "notlar": {
+          "name": "notlar",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "transactions_gayrimenkul_id_properties_id_fk": {
+          "name": "transactions_gayrimenkul_id_properties_id_fk",
+          "tableFrom": "transactions",
+          "tableTo": "properties",
+          "columnsFrom": [
+            "gayrimenkul_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "transactions_alici_id_clients_id_fk": {
+          "name": "transactions_alici_id_clients_id_fk",
+          "tableFrom": "transactions",
+          "tableTo": "clients",
+          "columnsFrom": [
+            "alici_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "transactions_satici_id_clients_id_fk": {
+          "name": "transactions_satici_id_clients_id_fk",
+          "tableFrom": "transactions",
+          "tableTo": "clients",
+          "columnsFrom": [
+            "satici_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "transactions_danisman_id_users_id_fk": {
+          "name": "transactions_danisman_id_users_id_fk",
+          "tableFrom": "transactions",
+          "tableTo": "users",
+          "columnsFrom": [
+            "danisman_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "transactions_islem_id_unique": {
+          "name": "transactions_islem_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "islem_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.users": {
+      "name": "users",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "ad": {
+          "name": "ad",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "soyad": {
+          "name": "soyad",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "username": {
+          "name": "username",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "telefon": {
+          "name": "telefon",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rol": {
+          "name": "rol",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'consultant'"
+        },
+        "departman": {
+          "name": "departman",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "password": {
+          "name": "password",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "son_giris": {
+          "name": "son_giris",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "durum": {
+          "name": "durum",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": true
+        },
+        "foto": {
+          "name": "foto",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "notlar": {
+          "name": "notlar",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "olusturulma_tarihi": {
+          "name": "olusturulma_tarihi",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "guncellenme_tarihi": {
+          "name": "guncellenme_tarihi",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "ciro": {
+          "name": "ciro",
+          "type": "numeric(15, 2)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'0'"
+        },
+        "ciro_ofis_payi": {
+          "name": "ciro_ofis_payi",
+          "type": "numeric(15, 2)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'0'"
+        },
+        "ciro_danisman_payi": {
+          "name": "ciro_danisman_payi",
+          "type": "numeric(15, 2)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'0'"
+        },
+        "ciro_danisman_yuzde": {
+          "name": "ciro_danisman_yuzde",
+          "type": "numeric(5, 2)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'3'"
+        },
+        "islem_sayisi": {
+          "name": "islem_sayisi",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "users_username_unique": {
+          "name": "users_username_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "username"
+          ]
+        },
+        "users_email_unique": {
+          "name": "users_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
